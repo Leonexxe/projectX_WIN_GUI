@@ -1,6 +1,6 @@
 #pragma once
 #include "wx/wx.h"
-#include "cMain.h"
+#include "cMain.cpp"
 
 class cApp : public wxApp
 {
