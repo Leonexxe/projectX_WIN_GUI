@@ -1,14 +1,18 @@
 #pragma once
 
-//stdlib
-#include <string>
-#include <iostream>
+//include the projectX library
+#include <projectX/AUTOCONFIG.h>
+#include <projectX/net.h>
+
+// constants
+#include "colors.cpp"
 
 // include wxWidgets
+#include "wx/wx.h"
 
-//include the projectX library
-
-//include the projectX windows CLI
-#include "projectX_CLI.cpp"
-
-//include locals
+//...
+#include "cMain.h"
+#include "cApp.h"
+#include "App.cpp"
+#include "cApp.cpp"
+#include "cMain.cpp"

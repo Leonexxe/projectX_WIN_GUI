@@ -13,8 +13,10 @@ project(projectX VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-add_executable(projectX main.cpp)
-set(CMAKE_GENERATOR_PLATFORM x64)
+add_executable(projectX WIN32 main.cpp)
+
+#msvc
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
 
 #wxWidgets
 target_include_directories(projectX PUBLIC C:/wxWidgets-3.1.5/include C:/wxWidgets-3.1.5/include/msvc)
@@ -40,16 +42,10 @@ target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_media.li
 target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_stc.lib")
 target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_webview.lib")
 target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_gl.lib")
-target_link_libraries(projectX "C:/PX_WIN_UI/projectX_WIN_GUI/projectX_CLI.lib")
-
-#msvc
-if(msvc)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
-endif(msvc)
 
 #copy files
 add_dependencies(projectX LCC)
-add_custom_target(LCC MICROSOFT_IS_STUPID)
+add_custom_target(LCC libcopy)
 
 #end
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

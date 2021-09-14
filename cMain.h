@@ -9,3 +9,4 @@ public:
 public:
 	wxTextCtrl* m_txt = nullptr;
 };
+cMain* UI_FRAME;

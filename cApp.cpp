@@ -15,5 +15,6 @@ bool cApp::OnInit()
 {
 	m_frame = new cMain();
 	m_frame->Show();
+	_app();
 	return 1;
 }
