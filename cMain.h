@@ -7,6 +7,7 @@ public:
 	~cMain();
 
 public:
-	wxTextCtrl* m_txt = nullptr;
+	wxListBox* m_console = nullptr;
+	wxPanel* m_MainPanel = nullptr;
 };
 cMain* UI_FRAME;

@@ -8,5 +8,5 @@
 # -----                                                                                                      #
 # You may not remove or alter this copyright header.                                                         #
 ############################################################################################################*/
-const char* default_Background = "#202020";
+const char* default_Background = "#010204";
 const char* white = "#FFFFFF";
