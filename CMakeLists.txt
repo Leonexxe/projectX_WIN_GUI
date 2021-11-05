@@ -13,35 +13,33 @@ project(projectX VERSION 0.1.0)
 include(CTest)
 enable_testing()
 
-add_executable(projectX WIN32 main.cpp)
+add_executable(projectX main.cpp)
 
-#msvc
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+#glfw
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+target_include_directories(projectX PUBLIC C:/cppLIB/include C:/cppLIB/GLFW/include C:/cppLIB/include/glad C:/cppLIB C:/cppLIB/lib)
+#target_link_libraries(projectX C:/cppLIB/glfw3.lib)
+add_subdirectory(C:/cppLIB/GLFW [binary_dir][EXCLUDE_FROM_ALL])
+target_link_libraries(projectX glfw)
+find_package(OpenGL REQUIRED)
+target_link_libraries(projectX OpenGL::GL)
 
-#wxWidgets
-target_include_directories(projectX PUBLIC C:/wxWidgets-3.1.5/include C:/wxWidgets-3.1.5/include/msvc)
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxbase31ud.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxbase31ud_net.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxbase31ud_xml.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxexpatd.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxregexud.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxzlibd.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxjpegd.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxpngd.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxtiffd.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxscintillad.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_core.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_html.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_qa.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_xrc.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_aui.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_propgrid.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_ribbon.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_richtext.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_media.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_stc.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_webview.lib")
-target_link_libraries(projectX "C:/wxWidgets-3.1.5/lib/vc_lib/wxmsw31ud_gl.lib")
+#
+#flags
+#
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  # using Clang
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -lGL -lglfw3")
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  # using GCC
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
+  # using Intel C++
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  # using Visual Studio C++
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+endif()
 
 #copy files
 add_dependencies(projectX LCC)
