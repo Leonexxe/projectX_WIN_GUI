@@ -40,7 +40,7 @@ using px::gl::RGBA;
 using px::gl::toFloat;
 void ENTRY_POINT(GLFWwindow* window)
 {
-    gladLoadGL();
+    //gladLoadGL();
     glEnable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
     glViewport(0,0,FRAME_WIDTH,FRAME_HEIGHT);
@@ -88,6 +88,6 @@ void ENTRY_POINT(GLFWwindow* window)
         glfwSwapBuffers(window);
         // take care of events
         glfwPollEvents();
-        Sleep(10);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 }

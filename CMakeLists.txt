@@ -15,35 +15,51 @@ enable_testing()
 
 add_executable(projectX main.cpp)
 
+set(projectXOS "OSX")
+
 #glfw
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-target_include_directories(projectX PUBLIC C:/cppLIB/include C:/cppLIB/GLFW/include C:/cppLIB/include/glad C:/cppLIB C:/cppLIB/lib)
-#target_link_libraries(projectX C:/cppLIB/glfw3.lib)
-add_subdirectory(C:/cppLIB/GLFW [binary_dir][EXCLUDE_FROM_ALL])
+#add_subdirectory(C:/cppLIB/GLFW [binary_dir][EXCLUDE_FROM_ALL])
+include_directories([AFTER|BEFORE] [SYSTEM] /usr/local/include)
+include_directories([AFTER|BEFORE] [SYSTEM] /Users/leonexxe/code/LIB)
+include_directories([AFTER|BEFORE] [SYSTEM] /Users/leonexxe/code/LIB/lib)
+include_directories([AFTER|BEFORE] [SYSTEM] /opt/homebrew/include)
 target_link_libraries(projectX glfw)
 find_package(OpenGL REQUIRED)
 target_link_libraries(projectX OpenGL::GL)
 
-#
-#flags
-#
-if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+#// 
+#// c++17
+#// 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang") 
   # using Clang
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -lGL -lglfw3")
+  message("using ${CMAKE_CXX_COMPILER_ID} configuration")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -stdlib=libc++ -Wno-c++98-compat -Wno-comment -Wno-#pragma-messages -Wno-return-type -Wno-macro-redefined -Wno-implicitly-unsigned-literal -Wno-string-compare")
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   # using GCC
+  message("using ${CMAKE_CXX_COMPILER_ID} configuration")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -stdlib=libc++")
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
   # using Intel C++
+  message("using ${CMAKE_CXX_COMPILER_ID} configuration")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -stdlib=libc++")
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   # using Visual Studio C++
+  message("using ${CMAKE_CXX_COMPILER_ID} configuration")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
+else()
+  message("could not identify C++ compiler (${CMAKE_CXX_COMPILER_ID})")
 endif()
 
-#copy files
-add_dependencies(projectX LCC)
-add_custom_target(LCC libcopy)
+#// 
+#// openGL
+#//  
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lgl -lglfw")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -framework OpenGL -framework GLUT -lglew -L\"/opt/homebrew/lib\"")
+
+message("CXX flags: \"${CMAKE_CXX_FLAGS}\"") 
 
 #end
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
